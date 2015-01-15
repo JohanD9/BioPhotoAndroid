@@ -1,12 +1,18 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
 /**
@@ -27,7 +33,11 @@ public class myPictures extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Context activityContext;
+
     private OnFragmentInteractionListener mListener;
+
+    private Integer[] pics = {R.drawable.coeur, R.drawable.arcenciel, R.drawable.coeur, R.drawable.arcenciel, R.drawable.coeur, R.drawable.arcenciel};
 
     /**
      * Use this factory method to create a new instance of
@@ -64,7 +74,17 @@ public class myPictures extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        activityContext = container.getContext();
+
         View rootView = inflater.inflate(R.layout.fragment_my_pictures, container, false);
+
+        Gallery gallery = (Gallery)rootView.findViewById(R.id.gallery);
+        gallery.setAdapter(new ImageAdapter(activityContext));
+
+        Toast toast = Toast.makeText(activityContext, "Glisser le doigt vers la droite ou vers la gauche pour faire défiler les photos.", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
         return rootView;
     }
 
@@ -107,4 +127,33 @@ public class myPictures extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    public class ImageAdapter extends BaseAdapter {
+        private Context context;
+
+        public ImageAdapter(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return pics.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView = new ImageView(context);
+            imageView.setImageResource(pics[position]);
+            return imageView;
+        }
+    }
 }
