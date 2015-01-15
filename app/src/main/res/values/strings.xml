@@ -2,11 +2,12 @@
 <resources>
 
     <string name="app_name">BioPhotoAndro</string>
-    <string name="title_section1">Take a photo</string>
-    <string name="title_section2">My pictures</string>
+    <string name="title_takeAPhoto">Take a photo</string>
+    <string name="title_pictures">My pictures</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
