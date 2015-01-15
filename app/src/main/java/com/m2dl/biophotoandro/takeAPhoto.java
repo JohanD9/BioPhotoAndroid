@@ -1,12 +1,16 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Gallery;
+
+import java.io.File;
 
 
 /**
@@ -64,6 +68,7 @@ public class takeAPhoto extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_take_a_photo, container, false);
     }
 
