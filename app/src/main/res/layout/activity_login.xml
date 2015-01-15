@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.m2dl.biophotoandro.LoginActivity"
+    android:background="@drawable/home_fond" >
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextUsername"
+        android:layout_marginTop="38dp"
+        android:background="#80000000"
+        android:editable="false"
+        android:minHeight="40dp"
+        android:textColor="#ffffffff"
+        android:paddingLeft="10dp"
+        android:ellipsize="start"
+        android:hint="Entrez votre nom d&apos;utilisateur..."
+        android:textColorHint="#ffffffff"
+        android:shadowRadius="5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonLaunch"
+        android:layout_marginBottom="96dp"
+        android:text="Lancer l&apos;application"
+        android:backgroundTint="@color/abc_background_cache_hint_selector_material_light"
+        android:textStyle="bold"
+        android:shadowRadius="5"
+        android:background="#ccd2d2d2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ff202020" />
+
+</RelativeLayout>
