@@ -19,11 +19,9 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class takeAPhoto extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String USERNAME = "username";
 
-    // TODO: Rename and change types of parameters
     private String mUsername;
 
     private View mRootView;
@@ -37,7 +35,6 @@ public class takeAPhoto extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment takeAPhoto.
      */
-    // TODO: Rename and change types and number of parameters
     public static takeAPhoto newInstance(String param1) {
         takeAPhoto fragment = new takeAPhoto();
         Bundle args = new Bundle();
@@ -69,6 +66,7 @@ public class takeAPhoto extends Fragment {
         mTextViewBonjour = (TextView) mRootView.findViewById(R.id.textViewBonjour);
         mTextViewBonjour.setText(mUsername);
         return mRootView;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
