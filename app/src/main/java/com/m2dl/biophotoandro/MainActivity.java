@@ -1,7 +1,6 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -15,14 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
 
 import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, takeAPhoto.OnFragmentInteractionListener, myPictures.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, takeAPhotoFragment.OnFragmentInteractionListener, myPicturesFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -33,6 +30,7 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private String mUsername;
     private ArrayList<Drawable> images;
 
     @Override
@@ -43,6 +41,7 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
+        mUsername = getIntent().getExtras().getString("username");
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -56,12 +55,14 @@ public class MainActivity extends ActionBarActivity
         Fragment frag;
         switch(position) {
             case 0:
-                frag = new takeAPhoto();
+                frag = new takeAPhotoFragment();
                 break;
             default:
-                frag = new myPictures();
+                frag = new myPicturesFragment();
                 break;
         }
+        Bundle myParams = getIntent().getExtras();
+        frag.setArguments(myParams);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, frag)

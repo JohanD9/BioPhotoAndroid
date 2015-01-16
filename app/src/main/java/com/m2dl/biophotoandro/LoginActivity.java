@@ -10,12 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
 public class LoginActivity extends ActionBarActivity {
 
-    private Button connectButton;
+    private ImageView connectButton;
     private EditText editUsername;
     private AlertDialog.Builder connectAlert;
 
@@ -38,7 +40,7 @@ public class LoginActivity extends ActionBarActivity {
                 });
 
         //Récupértion du bouton de connexion et du champs texte
-        connectButton = (Button) findViewById(R.id.buttonLaunch);
+        connectButton = (ImageView) findViewById(R.id.imageViewLaunch);
         editUsername = (EditText) findViewById(R.id.editTextUsername);
 
         connectButton.setOnClickListener(new Button.OnClickListener() {
@@ -46,8 +48,8 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 username = editUsername.getText().toString();
-                connectAlert.setMessage("Votre nom d'utilisateur doit comporter au minimum 5 charactères");
-                if (username.toString().length() < 5 || username.isEmpty()) {
+                connectAlert.setMessage("Votre nom d'utilisateur doit comporter au minimum 4 charactères");
+                if (username.toString().length() < 4 || username.isEmpty()) {
                     connectAlert.show();
                 } else {
                     Intent i = new Intent(getBaseContext(), MainActivity.class);

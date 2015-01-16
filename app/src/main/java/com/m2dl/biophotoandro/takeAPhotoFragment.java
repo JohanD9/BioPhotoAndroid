@@ -13,12 +13,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link takeAPhoto.OnFragmentInteractionListener} interface
+ * {@link takeAPhotoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link takeAPhoto#newInstance} factory method to
+ * Use the {@link takeAPhotoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class takeAPhoto extends Fragment {
+public class takeAPhotoFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String USERNAME = "username";
 
@@ -32,19 +32,14 @@ public class takeAPhoto extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment takeAPhoto.
+     * @return A new instance of fragment takeAPhotoFragment.
      */
-    public static takeAPhoto newInstance(String param1) {
-        takeAPhoto fragment = new takeAPhoto();
-        Bundle args = new Bundle();
-        args.putString(USERNAME, param1);
-
-        fragment.setArguments(args);
+    public static takeAPhotoFragment newInstance() {
+        takeAPhotoFragment fragment = new takeAPhotoFragment();
         return fragment;
     }
 
-    public takeAPhoto() {
+    public takeAPhotoFragment() {
         // Required empty public constructor
     }
 

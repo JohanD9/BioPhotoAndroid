@@ -29,21 +29,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLaunch"
-        android:layout_marginBottom="96dp"
-        android:text="Lancer l&apos;application"
-        android:backgroundTint="@color/abc_background_cache_hint_selector_material_light"
-        android:textStyle="bold"
-        android:shadowRadius="5"
-        android:background="#ccd2d2d2"
+        android:id="@+id/imageViewLaunch"
+        android:src="@drawable/go_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#ff202020" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -18,12 +18,12 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link myPictures.OnFragmentInteractionListener} interface
+ * {@link myPicturesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link myPictures#newInstance} factory method to
+ * Use the {@link myPicturesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class myPictures extends Fragment {
+public class myPicturesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,11 +45,11 @@ public class myPictures extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment myPictures.
+     * @return A new instance of fragment myPicturesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static myPictures newInstance(String param1, String param2) {
-        myPictures fragment = new myPictures();
+    public static myPicturesFragment newInstance(String param1, String param2) {
+        myPicturesFragment fragment = new myPicturesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,7 +57,7 @@ public class myPictures extends Fragment {
         return fragment;
     }
 
-    public myPictures() {
+    public myPicturesFragment() {
         // Required empty public constructor
     }
 
