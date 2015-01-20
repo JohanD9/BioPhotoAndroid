@@ -1,24 +1,31 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link takeAPhotoFragment.OnFragmentInteractionListener} interface
+ * {@link homeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link takeAPhotoFragment#newInstance} factory method to
+ * Use the {@link homeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class takeAPhotoFragment extends Fragment {
+public class homeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String USERNAME = "username";
 
@@ -26,20 +33,23 @@ public class takeAPhotoFragment extends Fragment {
 
     private View mRootView;
     private OnFragmentInteractionListener mListener;
-    private TextView mTextViewBonjour;
+    private TextView mTextViewUsername;
+
+    private Uri imageUri;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment takeAPhotoFragment.
+     * @return A new instance of fragment homeFragment.
      */
-    public static takeAPhotoFragment newInstance() {
-        takeAPhotoFragment fragment = new takeAPhotoFragment();
+    public static homeFragment newInstance() {
+        homeFragment fragment = new homeFragment();
         return fragment;
     }
 
-    public takeAPhotoFragment() {
+    public homeFragment() {
         // Required empty public constructor
     }
 
@@ -57,9 +67,9 @@ public class takeAPhotoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView = inflater.inflate(R.layout.fragment_take_a_photo, container, false);
-        mTextViewBonjour = (TextView) mRootView.findViewById(R.id.textViewBonjour);
-        mTextViewBonjour.setText(mUsername);
+        mRootView = inflater.inflate(R.layout.fragment_home, container, false);
+        mTextViewUsername = (TextView) mRootView.findViewById(R.id.textViewUsername);
+        mTextViewUsername.setText(mUsername);
         return mRootView;
 
     }

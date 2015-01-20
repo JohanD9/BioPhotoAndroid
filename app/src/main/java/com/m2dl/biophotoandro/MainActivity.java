@@ -1,8 +1,11 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -15,11 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, takeAPhotoFragment.OnFragmentInteractionListener, myPicturesFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, homeFragment.OnFragmentInteractionListener, myPicturesFragment.OnFragmentInteractionListener,takePhotoFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -32,6 +36,8 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
     private String mUsername;
     private ArrayList<Drawable> images;
+
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
@@ -55,7 +62,7 @@ public class MainActivity extends ActionBarActivity
         Fragment frag;
         switch(position) {
             case 0:
-                frag = new takeAPhotoFragment();
+                frag = new takePhotoFragment();
                 break;
             default:
                 frag = new myPicturesFragment();
@@ -118,6 +125,10 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    public void OnFragmentInteractionListener() {
 
     }
 

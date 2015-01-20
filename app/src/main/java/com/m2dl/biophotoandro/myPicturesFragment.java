@@ -5,10 +5,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -76,10 +78,24 @@ public class myPicturesFragment extends Fragment {
         // Inflate the layout for this fragment
         activityContext = container.getContext();
 
-        View rootView = inflater.inflate(R.layout.fragment_my_pictures, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_my_pictures, container, false);
+
 
         Gallery gallery = (Gallery)rootView.findViewById(R.id.gallery);
         gallery.setAdapter(new ImageAdapter(activityContext));
+
+        Log.i(getTag(), "debut");
+        gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(getTag(), String.valueOf(id));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Toast toast = Toast.makeText(activityContext, "Glisser le doigt vers la droite ou vers la gauche pour faire défiler les photos.", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
