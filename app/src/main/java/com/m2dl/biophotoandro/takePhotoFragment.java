@@ -1,6 +1,7 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,11 +10,15 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -32,8 +37,15 @@ import java.util.Date;
 public class takePhotoFragment extends android.support.v4.app.Fragment {
 
     private View mRootView;
+    private Button mbuttonSave;
     private Uri imageUri;
+
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final String COORD_X = "coordX";
+    private static final String COORD_Y = "coordY";
+
+    float coordX;
+    float coordY;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,7 +75,41 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mRootView = inflater.inflate(R.layout.fragment_take_photo, container, false);;
+        mRootView = inflater.inflate(R.layout.fragment_take_photo, container, false);
+
+        mbuttonSave = (Button) mRootView.findViewById(R.id.buttonSavePoi);
+        mbuttonSave.setClickable(false);
+
+        mRootView.findViewById(R.id.buttonDeletePoi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView poi = (ImageView) mRootView.findViewById(R.id.imageViewPoi);
+                poi.setImageResource(android.R.color.transparent);
+                mbuttonSave.setClickable(false);
+            }
+        });
+
+
+        mbuttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mRootView.getContext(), "TODO", Toast.LENGTH_LONG).show();
+                infoPhotoFragment fragInfo = new infoPhotoFragment();
+
+                Bundle args = new Bundle();
+                args.putString(COORD_X, String.valueOf(coordX));
+                args.putString(COORD_Y, String.valueOf(coordY));
+                fragInfo.setArguments(args);
+
+                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.container, fragInfo);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
         return mRootView;
     }
 
@@ -109,28 +155,45 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Uri selectedImage = imageUri;
+        mRootView.getContext().getContentResolver().notifyChange(selectedImage, null);
+        ImageView imageView = (ImageView) mRootView.findViewById(R.id.imageViewPhoto);
         switch (requestCode) {
             //Si l'activité était une prise de photo
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
-                    Uri selectedImage = imageUri;
-                    mRootView.getContext().getContentResolver().notifyChange(selectedImage, null);
-                    ImageView imageView = (ImageView) mRootView.findViewById(R.id.imageViewPhoto);
+
                     ContentResolver cr = mRootView.getContext().getContentResolver();
                     Bitmap bitmap;
                     try {
                         bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-
                         imageView.setImageBitmap(bitmap);
                         //Affichage de l'infobulle
-                        Toast.makeText(mRootView.getContext(), selectedImage.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mRootView.getContext(), "Touchez l'image pour ajouter un point d'intérêt", Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
-                        Toast.makeText(mRootView.getContext(), "Failed to load", Toast.LENGTH_SHORT)
+                        Toast.makeText(mRootView.getContext(), "Impossible de charger l'image", Toast.LENGTH_SHORT)
                                 .show();
                         Log.e("Camera", e.toString());
                     }
                 }
         }
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.i(getTag(), "touche");
+                coordX = event.getX();
+                coordY = event.getY();
+
+                ImageView poi = (ImageView) mRootView.findViewById(R.id.imageViewPoi);
+                poi.setImageResource(R.drawable.poi);
+                poi.setX(coordX - 20);
+                poi.setY(coordY - 47);
+                mbuttonSave.setClickable(true);
+
+                return true;
+            }
+        });
     }
 
     /**

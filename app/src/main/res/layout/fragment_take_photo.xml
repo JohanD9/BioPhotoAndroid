@@ -10,4 +10,24 @@
         android:id="@+id/imageViewPhoto"
         android:layout_gravity="left|top" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewPoi"
+        android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sauver Point D&apos;intérêt"
+        android:id="@+id/buttonSavePoi"
+        android:layout_gravity="right|bottom" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Supprimer Point d&apos;intérêt"
+        android:id="@+id/buttonDeletePoi"
+        android:layout_gravity="left|bottom" />
+
 </FrameLayout>

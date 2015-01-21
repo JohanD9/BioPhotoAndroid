@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, homeFragment.OnFragmentInteractionListener, myPicturesFragment.OnFragmentInteractionListener,takePhotoFragment.OnFragmentInteractionListener{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, homeFragment.OnFragmentInteractionListener, infoPhotoFragment.OnFragmentInteractionListener,takePhotoFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -35,9 +36,6 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private String mUsername;
-    private ArrayList<Drawable> images;
-
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

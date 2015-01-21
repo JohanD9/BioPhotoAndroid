@@ -88,7 +88,7 @@ public class myPicturesFragment extends Fragment {
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(getTag(), String.valueOf(id));
+                Log.i(getTag(), String.valueOf(position));
             }
 
             @Override
