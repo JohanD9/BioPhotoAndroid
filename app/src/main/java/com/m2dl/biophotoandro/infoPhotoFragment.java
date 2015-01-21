@@ -1,6 +1,7 @@
 package com.m2dl.biophotoandro;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -23,13 +25,10 @@ import android.widget.TextView;
 public class infoPhotoFragment extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String COORD_X = "coordX";
-    private static final String COORD_Y = "coordY";
     private static final String INFOS = "infos";
+    private static final int SEND_EMAIL_ACTIVITY_REQUEST_CODE = 200;
 
     // TODO: Rename and change types of parameters
-    private String mCoordX;
-    private String mCoordY;
     private Infos pictureInfos;
 
     private OnFragmentInteractionListener mListener;
@@ -37,6 +36,7 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
     private TextView mtextViewX;
     private TextView mtextViewY;
     private Button mSendButton;
+    private EditText mDestinataire;
 
     /**
      * Use this factory method to create a new instance of
@@ -74,13 +74,64 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
         mtextViewX = (TextView) mRootView.findViewById(R.id.textViewX);
         mtextViewY = (TextView) mRootView.findViewById(R.id.textViewY);
         mSendButton = (Button) mRootView.findViewById(R.id.buttonMail);
+        mDestinataire = (EditText) mRootView.findViewById(R.id.editTextMail);
 
 
         mtextViewX.setText(String.valueOf(pictureInfos.getCoordX()));
         mtextViewY.setText(String.valueOf(pictureInfos.getCoordY()));
 
 
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dest = mDestinataire.getText().toString();
+                EditText com = (EditText) mRootView.findViewById(R.id.editTextComment);
+                pictureInfos.setCommentaire(com.getText().toString());
+                if (dest != "") {
+                    String subject = "Picture BioPic";
+                    Intent email = new Intent(Intent.ACTION_SEND);
+                    email.putExtra(Intent.EXTRA_EMAIL, dest);
+                    email.setType("application/image");
+                    email.putExtra(Intent.EXTRA_STREAM, pictureInfos.getPictureUri());
+                    email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    email.putExtra(Intent.EXTRA_TEXT, getContentMail(pictureInfos));
+
+                    startActivityForResult(Intent.createChooser(email, "Choisissez un client de messagerie:"), SEND_EMAIL_ACTIVITY_REQUEST_CODE);
+                }
+            }
+        });
+
         return mRootView;
+    }
+
+    private String getContentMail(Infos picture){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Date : ");
+        sb.append(picture.getDate());
+
+        sb.append("\n");
+        sb.append("\n");
+
+        sb.append("Point d'intérêt : \n");
+
+        sb.append("x : ");
+        sb.append(picture.getCoordX());
+        sb.append("\n");
+
+        sb.append("y : ");
+        sb.append(picture.getCoordY());
+        sb.append("\n");
+
+        sb.append("\n");
+        sb.append("\n");
+
+        sb.append("Clé de caractérisation : " + "TODO" +"\n");
+
+        sb.append("Commentaire :\n");
+        sb.append(picture.getCommentaire());
+
+        return sb.toString();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,6 +156,15 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SEND_EMAIL_ACTIVITY_REQUEST_CODE) {
+
+        }
     }
 
     /**
