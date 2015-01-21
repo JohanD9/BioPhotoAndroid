@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,12 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String COORD_X = "coordX";
     private static final String COORD_Y = "coordY";
+    private static final String INFOS = "infos";
 
     // TODO: Rename and change types of parameters
     private String mCoordX;
     private String mCoordY;
+    private Infos pictureInfos;
 
     private OnFragmentInteractionListener mListener;
     private View mRootView;
@@ -39,16 +42,14 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param x Parameter 1.
-     * @param y Parameter 2.
+
      * @return A new instance of fragment infoPhotoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static infoPhotoFragment newInstance(String x, String y) {
+    public static infoPhotoFragment newInstance(Parcelable infos) {
         infoPhotoFragment fragment = new infoPhotoFragment();
         Bundle args = new Bundle();
-        args.putString(COORD_X, x);
-        args.putString(COORD_Y, y);
+        args.putParcelable(INFOS, infos);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +62,7 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mCoordX = getArguments().getString(COORD_X);
-            mCoordY = getArguments().getString(COORD_Y);
+            pictureInfos = getArguments().getParcelable(INFOS);
         }
     }
 
@@ -76,8 +76,8 @@ public class infoPhotoFragment extends android.support.v4.app.Fragment {
         mSendButton = (Button) mRootView.findViewById(R.id.buttonMail);
 
 
-        mtextViewX.setText(mCoordX);
-        mtextViewY.setText(mCoordY);
+        mtextViewX.setText(String.valueOf(pictureInfos.getCoordX()));
+        mtextViewY.setText(String.valueOf(pictureInfos.getCoordY()));
 
 
         return mRootView;

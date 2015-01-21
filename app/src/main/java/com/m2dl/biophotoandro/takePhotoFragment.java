@@ -43,9 +43,12 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final String COORD_X = "coordX";
     private static final String COORD_Y = "coordY";
+    private static final String INFOS = "infos";
 
     float coordX;
     float coordY;
+
+    private Infos pictureInfos;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +71,7 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pictureInfos = new Infos();
         takePhoto();
     }
 
@@ -98,6 +102,7 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
 
                 Bundle args = new Bundle();
                 args.putString(COORD_X, String.valueOf(coordX));
+                args.putParcelable(INFOS, pictureInfos);
                 args.putString(COORD_Y, String.valueOf(coordY));
                 fragInfo.setArguments(args);
 
@@ -147,6 +152,7 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
         File photo = new File(Environment.getExternalStorageDirectory(),  imageFileName);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
+        pictureInfos.setPictureUri(imageUri);
 
         //On lance l'intent
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -184,6 +190,9 @@ public class takePhotoFragment extends android.support.v4.app.Fragment {
                 Log.i(getTag(), "touche");
                 coordX = event.getX();
                 coordY = event.getY();
+
+                pictureInfos.setCoordX(coordX);
+                pictureInfos.setCoordY(coordY);
 
                 ImageView poi = (ImageView) mRootView.findViewById(R.id.imageViewPoi);
                 poi.setImageResource(R.drawable.poi);

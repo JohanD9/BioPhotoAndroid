@@ -1,5 +1,7 @@
 package com.m2dl.biophotoandro;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,11 +17,21 @@ public class Infos implements Parcelable {
     private float coordYgps;
 
     private String commentaire;
-    private String pictureName;
+    private Uri pictureUri;
     private String date;
     private String dest;
 
+    public void setPictureUri(Uri pictureUri) {
+        this.pictureUri = pictureUri;
+    }
+
+    public Uri getPictureUri() {
+
+        return pictureUri;
+    }
+
     public void setCoordY(float coordY) {
+
         this.coordY = coordY;
     }
 
@@ -37,10 +49,6 @@ public class Infos implements Parcelable {
 
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
-    }
-
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
     }
 
     public void setDest(String dest) {
@@ -66,10 +74,6 @@ public class Infos implements Parcelable {
 
     public String getCommentaire() {
         return commentaire;
-    }
-
-    public String getPictureName() {
-        return pictureName;
     }
 
     public String getDate() {
@@ -101,7 +105,30 @@ public class Infos implements Parcelable {
         dest.writeString(String.valueOf(coordXgps));
         dest.writeString(String.valueOf(coordYgps));
         dest.writeString(commentaire);
-        dest.writeString(pictureName);
+        dest.writeString(pictureUri.toString());
         dest.writeString(date);
+    }
+
+    public static final Parcelable.Creator<Infos> CREATOR = new Parcelable.Creator<Infos>() {
+
+        @Override
+        public Infos createFromParcel(Parcel source) {
+            return new Infos(source);
+        }
+
+        @Override
+        public Infos[] newArray(int size) {
+            return new Infos[size];
+        }
+    };
+
+    public Infos(Parcel in) {
+        this.coordX = Float.parseFloat(in.readString());
+        this.coordY = Float.parseFloat(in.readString());
+        this.coordXgps = Float.parseFloat(in.readString());
+        this.coordYgps = Float.parseFloat(in.readString());
+        this.commentaire = in.readString();
+        this.pictureUri = Uri.parse(in.readString());
+        this.date = in.readString();
     }
 }
